@@ -1,7 +1,5 @@
-# API Test Automation with Bruno and GitHub Actions
-
-This repository contains automated API tests using the Bruno CLI and continuous integration with GitHub Actions.
-
+# Collection Test Automation with Bruno and GitHub Actions
+This repository contains automated collection tests using the Bruno CLI and continuous integration with GitHub Actions.
 ## Table of Contents
 
 - [Overview](#overview)
@@ -9,7 +7,7 @@ This repository contains automated API tests using the Bruno CLI and continuous 
 
 ## Overview
 
-This project is designed to automate API testing using Bruno, a CLI tool for API testing. The tests are automatically run on every push to the main branch using GitHub Actions.
+This project is designed to automate the testing of requests inside collections using Bruno, a CLI tool for API testing. The tests are automatically run for each collection on every push to the main branch using GitHub Actions.
 
 ## Setup
 
@@ -54,7 +52,7 @@ To set up the project, follow these steps:
 
     ```bash
     git add .
-    git commit -m "Add API tests"
+    git commit -m "Add collection tests"
     git push origin main
     ```
 
@@ -62,7 +60,7 @@ To set up the project, follow these steps:
     On the GitHub page, click on the Actions tab and click on the [set up a workflow yourself](https://github.com/aneeshedavalats/api-test-automation/new/main?filename=.github%2Fworkflows%2Fmain.yml&workflow_template=blank).
 
 13. **Add Workflow YAML File:**
-    Add the workflow YAML file (`.github/workflows/api-test-workflow.yml`) and commit the changes.
+    Add the workflow YAML file (`.github/workflows/single-collection-workflow.yml`) and commit the changes.
 
     ```yaml
     name: Run Bruno Tests
@@ -105,3 +103,49 @@ To set up the project, follow these steps:
 
 15. **View Job Results:**
     Once the job run is completed, the result will be uploaded as an artifact. You can download and view the results from the GitHub Actions page.
+
+## Workflow for Multiple Collections
+**Workflow YAML File:**
+    Add the workflow YAML file (`.github/workflows/multiple-collections-workflow.yml`) and commit the changes.
+
+```yaml
+name: Run Multiple Collection Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-multiple-collection-tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        collection:
+          - pos
+          - pos-duplicate
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js environment
+        uses: actions/setup-node@v4.0.2
+        with:
+          node-version: '20'
+
+      - name: Install Bruno CLI
+        run: npm install -g @usebruno/cli
+
+      - name: Run Bruno tests
+        run: bru run --env qa --env-var password=${{ secrets.PASSWORD }} -o results-${{ matrix.collection }}.html -f html --tests-only
+        working-directory: collections/${{ matrix.collection }}
+        continue-on-error: true
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results-${{ matrix.collection }}
+          path: collections/${{ matrix.collection }}/results-${{ matrix.collection }}.html
+
