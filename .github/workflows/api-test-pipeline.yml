@@ -31,3 +31,4 @@ jobs:
         with:
           name: test-results
           path: collections/pos/results.html
+        continue-on-error: true
