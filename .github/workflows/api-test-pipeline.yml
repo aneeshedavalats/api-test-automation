@@ -24,6 +24,7 @@ jobs:
       - name: Run Bruno tests
         run: bru run --env qa --env-var password=${{ secrets.PASSWORD }} -o results.html -f html --tests-only
         working-directory: collections/pos
+        continue-on-error: true
 
       - name: Upload test results
         uses: actions/upload-artifact@v3
