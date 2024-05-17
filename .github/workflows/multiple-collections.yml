@@ -1,12 +1,11 @@
-name: Run Bruno Tests
-
+name: Multiple Collections Test Run
 on:
   push:
     branches:
       - main
 
 jobs:
-  run-bruno-tests:
+  multiple-collections-test-run:
     runs-on: ubuntu-latest
 
     steps:
