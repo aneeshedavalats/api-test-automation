@@ -6,10 +6,6 @@ This repository contains automated API tests using the Bruno CLI and continuous 
 
 - [Overview](#overview)
 - [Setup](#setup)
-- [Running Tests Locally](#running-tests-locally)
-- [GitHub Actions Workflow](#github-actions-workflow)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Overview
 
