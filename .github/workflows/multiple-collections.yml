@@ -1,0 +1,38 @@
+name: Run Bruno Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-bruno-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js environment
+        uses: actions/setup-node@v4.0.2
+        with:
+          node-version: '20'
+
+      - name: Install Bruno CLI
+        run: npm install -g @usebruno/cli
+
+      - name: List collections
+        run: |
+          for collection in collections/*; do
+            if [ -d "$collection" ]; then
+              echo "Running tests for collection: $(basename $collection)"
+              bru run --env qa --env-var password=${{ secrets.PASSWORD }} -o results-$(basename $collection).html -f html --tests-only "$collection"
+            fi
+          done
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: |
+            collections/*/results-*.html
