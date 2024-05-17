@@ -26,7 +26,8 @@ jobs:
           for collection in collections/*; do
             if [ -d "$collection" ]; then
               echo "Running tests for collection: $(basename $collection)"
-              bru run --env qa --env-var password=${{ secrets.PASSWORD }} -o results-$(basename $collection).html -f html --tests-only "$collection"
+              cd collections/$collection
+              bru run --env qa --env-var password=${{ secrets.PASSWORD }} -o results-$(basename $collection).html -f html --tests-only
             fi
           done
 
