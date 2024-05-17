@@ -21,7 +21,6 @@ jobs:
         run: npm install -g @usebruno/cli
 
       - name: Run Bruno tests on all collections
-        continue-on-error: true
         run: |
           for collection in collections/*; do
             if [ -d "$collection" ]; then
@@ -31,6 +30,7 @@ jobs:
               cd ..
             fi
           done
+        continue-on-error: true
 
       - name: Upload test results
         uses: actions/upload-artifact@v3
