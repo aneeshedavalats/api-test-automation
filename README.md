@@ -63,41 +63,41 @@ To set up the project, follow these steps:
 13. **Add Workflow YAML File:**
     Add the workflow YAML file (`.github/workflows/single-collection-workflow.yml`) and commit the changes.
 
-    ```yaml
-    name: Run Bruno Tests
+```yaml
+name: Run Single Collection Tests
 
-    on:
-      push:
-        branches:
-          - main
+on:
+  push:
+    branches:
+      - main
 
-    jobs:
-      run-bruno-tests:
-        runs-on: ubuntu-latest
+jobs:
+  run-single-collection-tests:
+    runs-on: ubuntu-latest
 
-        steps:
-          - name: Checkout code
-            uses: actions/checkout@v3
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-          - name: Set up Node.js environment
-            uses: actions/setup-node@v4.0.2
-            with:
-              node-version: '20'
+      - name: Set up Node.js environment
+        uses: actions/setup-node@v4.0.2
+        with:
+          node-version: '20'
 
-          - name: Install Bruno CLI
-            run: npm install -g @usebruno/cli
+      - name: Install Bruno CLI
+        run: npm install -g @usebruno/cli
 
-          - name: Run Bruno tests
-            run: bru run --env qa --env-var password=${{ secrets.PASSWORD }} -o results.html -f html --tests-only
-            working-directory: collections/pos
-            continue-on-error: true
+      - name: Run single collection tests
+        run: bru run --env qa --env-var password=${{ secrets.PASSWORD }} -o results.html -f html --tests-only
+        working-directory: collections/pos
+        continue-on-error: true
 
-          - name: Upload test results
-            uses: actions/upload-artifact@v3
-            with:
-              name: test-results
-              path: collections/pos/results.html
-    ```
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: collections/pos/results.html
+```
 
 14. **Add Secrets to GitHub:**
     If the workflow YAML file contains any secrets, add them to the Actions under the Secrets and variables in the Settings tab. Choose New repository secret, add the variable name in uppercase letters, and add the secret value. Click on the Add secret button.
@@ -149,4 +149,5 @@ jobs:
         with:
           name: test-results-${{ matrix.collection }}
           path: collections/${{ matrix.collection }}/results-${{ matrix.collection }}.html
+```
 
