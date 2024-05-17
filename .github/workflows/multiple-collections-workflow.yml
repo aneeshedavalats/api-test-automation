@@ -27,7 +27,7 @@ jobs:
       - name: Install Bruno CLI
         run: npm install -g @usebruno/cli
 
-      - name: Run Bruno tests
+      - name: Run multiple collections tests
         run: bru run --env qa --env-var password=${{ secrets.PASSWORD }} -o results-${{ matrix.collection }}.html -f html --tests-only
         working-directory: collections/${{ matrix.collection }}
         continue-on-error: true
