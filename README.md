@@ -4,6 +4,7 @@ This repository contains automated collection tests using the Bruno CLI and cont
 
 - [Overview](#overview)
 - [Setup](#setup)
+- [Workflow for Multiple Collections](#workflow-for-multiple-collections)
 
 ## Overview
 
