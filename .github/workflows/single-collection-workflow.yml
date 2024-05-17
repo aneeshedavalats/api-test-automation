@@ -1,4 +1,4 @@
-name: Run Bruno Tests
+name: Run Single Collection Tests
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  run-bruno-tests:
+  run-single-collection-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,7 +21,7 @@ jobs:
       - name: Install Bruno CLI
         run: npm install -g @usebruno/cli
 
-      - name: Run Bruno tests
+      - name: Run single collection tests
         run: bru run --env qa --env-var password=${{ secrets.PASSWORD }} -o results.html -f html --tests-only
         working-directory: collections/pos
         continue-on-error: true
