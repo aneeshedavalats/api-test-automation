@@ -59,7 +59,7 @@ To set up the project, follow these steps:
     ```
 
 12. **Set Up GitHub Actions Workflow:**
-    On the GitHub page, click on the Actions tab and click on the set up a workflow yourself hyperlink.
+    On the GitHub page, click on the Actions tab and click on the [set up a workflow yourself](https://github.com/aneeshedavalats/api-test-automation/new/main?filename=.github%2Fworkflows%2Fmain.yml&workflow_template=blank).
 
 13. **Add Workflow YAML File:**
     Add the workflow YAML file (`.github/workflows/api-automation-tests.yml`) and commit the changes.
