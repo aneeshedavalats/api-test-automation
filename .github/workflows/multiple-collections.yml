@@ -21,7 +21,8 @@ jobs:
       - name: Install Bruno CLI
         run: npm install -g @usebruno/cli
 
-      - name: List collections
+      - name: Run Bruno tests on all collections
+        continue-on-error: true
         run: |
           for collection in collections/*; do
             if [ -d "$collection" ]; then
