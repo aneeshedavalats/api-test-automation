@@ -10,7 +10,7 @@ script:pre-request {
   const axios = require('axios');
   
   async function getToken() {
-    const url = 'https://auth-qa.mozcomonline.com/v1/auth/token';
+    const url = bru.getEnvVar('auth_host');
     const requestBody = {
       username: bru.getEnvVar('username'),
       password: bru.getEnvVar('password'),
